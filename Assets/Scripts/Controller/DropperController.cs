@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CoinDropperController : MonoBehaviour
+public class DropperController : MonoBehaviour
 {
-    [SerializeField] GameObject coin_prefab, coin_10_prefab;
+    [SerializeField] GameObject coin_prefab, coin_10_prefab, ball_prefab;
     [SerializeField] Transform escapeField, coinField;
 
     Vector3 startPosition;
@@ -24,6 +24,8 @@ public class CoinDropperController : MonoBehaviour
     public void DropBunusCoin()
     {
         var coin = Instantiate(coin_10_prefab, new Vector3(Random.Range(-4,5), 20, Random.Range(-1,-13)), Quaternion.identity);
+        coin.transform.SetParent(escapeField);
+        var ball = Instantiate(ball_prefab, new Vector3(Random.Range(-4,5), 20, Random.Range(-1,-13)), Quaternion.identity);
         coin.transform.SetParent(escapeField);
     }
 

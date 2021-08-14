@@ -17,7 +17,7 @@ public class FieldChecker : MonoBehaviour
 
     [SerializeField] FieldPosition fieldPostition;
     [SerializeField] DropFieldContorller dropFieldContorller;
-    [SerializeField] CoinDropperController coinDropperController;
+    [SerializeField] DropperController dropperController;
 
     private Transform pusherCoinField, coinField;
 
@@ -29,12 +29,12 @@ public class FieldChecker : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Coin" || other.gameObject.tag == "10Coin")
+        if(other.gameObject.tag == "Coin" || other.gameObject.tag == "10Coin" || other.gameObject.tag == "Ball")
         {
             switch(fieldPostition)
             {
                 case FieldPosition.CheckBonus:
-                    coinDropperController.DropBunusCoin();
+                    dropperController.DropBunusCoin();
                     break;
 
                 case FieldPosition.CheckCounter:

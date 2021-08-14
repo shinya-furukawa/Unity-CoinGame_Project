@@ -5,19 +5,28 @@ using UnityEngine;
 public class DropFieldContorller : MonoBehaviour
 {
     [SerializeField] GameManager gameManager;
-    public void DestroyCoin(GameObject coinObj, FieldChecker.FieldPosition dropPostion)
+    public void DestroyCoin(GameObject obj, FieldChecker.FieldPosition dropPostion)
     {
-        if(dropPostion == FieldChecker.FieldPosition.DropCenter)
+        if(obj.tag == "Coin" || obj.tag == "10Coin")
         {
-            gameManager.CoinCount += coinObj.GetComponent<Coin>().CoinCount;
-            gameManager.UpdateCoinCount();
+            if(dropPostion == FieldChecker.FieldPosition.DropCenter)
+            {
+                gameManager.CoinCount += obj.GetComponent<Coin>().CoinCount;
+                gameManager.UpdateCoinCount();
+            }
+
+            if(dropPostion == FieldChecker.FieldPosition.DropRight || dropPostion == FieldChecker.FieldPosition.DropLeft)
+            {
+                gameManager.JackPotCount += obj.GetComponent<Coin>().CoinCount;
+                gameManager.UpdateCoinCount();
+            }
         }
 
-        if(dropPostion == FieldChecker.FieldPosition.DropRight || dropPostion == FieldChecker.FieldPosition.DropLeft)
+        if(obj.tag == "Ball")
         {
-            gameManager.JackPotCount += coinObj.GetComponent<Coin>().CoinCount;
-            gameManager.UpdateCoinCount();
+            Debug.Log("Ball Destroy!!");
         }
-        Destroy(coinObj);
+        
+        Destroy(obj);
     }
 }

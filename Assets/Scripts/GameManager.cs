@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public MainGameUI mainGameUI;
-    public CoinDropperController coinDropperController;
+    public DropperController coinDropperController;
     const int RIGHT = 0, LEFT = 1;
 
     public float baseWidth;
@@ -20,8 +20,6 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        coinCount = 500;
-        jackPotCount = 1000;
         mainGameUI.SetGameUI();
         coinDropperController.SetFirstCoin(setCoinCount);
     }
