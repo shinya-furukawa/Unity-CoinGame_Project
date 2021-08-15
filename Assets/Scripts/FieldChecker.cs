@@ -18,6 +18,7 @@ public class FieldChecker : MonoBehaviour
     [SerializeField] FieldPosition fieldPostition;
     [SerializeField] DropFieldContorller dropFieldContorller;
     [SerializeField] DropperController dropperController;
+    [SerializeField] StageManager stageManager;
 
     private Transform pusherCoinField, coinField;
 
@@ -38,6 +39,7 @@ public class FieldChecker : MonoBehaviour
                     break;
 
                 case FieldPosition.CheckCounter:
+                    stageManager.ChangeCounterMaterial();
                     break;
 
                 case FieldPosition.Pusher:

@@ -25,8 +25,6 @@ public class DropperController : MonoBehaviour
     {
         var coin = Instantiate(coin_10_prefab, new Vector3(Random.Range(-4,5), 20, Random.Range(-1,-13)), Quaternion.identity);
         coin.transform.SetParent(escapeField);
-        var ball = Instantiate(ball_prefab, new Vector3(Random.Range(-4,5), 20, Random.Range(-1,-13)), Quaternion.identity);
-        coin.transform.SetParent(escapeField);
     }
 
     public void SetFirstCoin(int count)
