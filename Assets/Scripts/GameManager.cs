@@ -21,13 +21,13 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         mainGameUI.SetGameUI();
-        coinDropperController.SetFirstCoin(setCoinCount);
+        coinDropperController.DropCoins(setCoinCount);
     }
 
     private void Update() {
         if(Input.GetButtonDown("Fire1") && coinCount > 0)
         {
-            coinDropperController.DropCoin(GetInstantiatePosition());
+            coinDropperController.ShotCoin(GetInstantiatePosition());
             coinCount--;
             UpdateCoinCount();
         }
