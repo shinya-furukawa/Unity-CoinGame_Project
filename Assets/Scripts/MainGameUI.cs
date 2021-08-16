@@ -7,11 +7,11 @@ using TMPro;
 public class MainGameUI : MonoBehaviour
 {
     public GameManager gameManager;
-    public TextMeshPro holdCoinText;
-    public TextMeshPro jackPotText;
+    public TextMeshPro holdCoinText, jackPotText, rouletteActionText;
     // Start is called before the first frame update
     public void SetGameUI()
     {
+        rouletteActionText.text = "";
         holdCoinText.text = "$ " + gameManager.CoinCount;
         jackPotText.text = "$ " + gameManager.JackPotCount;
     }

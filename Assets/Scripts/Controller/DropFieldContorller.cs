@@ -25,6 +25,8 @@ public class DropFieldContorller : MonoBehaviour
         if(obj.tag == "Ball")
         {
             Debug.Log("Ball Destroy!!");
+            gameManager.ballStockCount++;
+            gameManager.dropperController.DropStockBall();
         }
         
         Destroy(obj);

@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cysharp.Threading.Tasks;
 
 public class GameManager : MonoBehaviour
 {
     public MainGameUI mainGameUI;
-    public DropperController coinDropperController;
+    public DropperController dropperController;
+    [SerializeField] StageManager stageManager;
+    [SerializeField] RouletteController rouletteController;
     const int RIGHT = 0, LEFT = 1;
 
     public float baseWidth;
@@ -13,6 +16,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] int setCoinCount;
     [SerializeField] int coinCount;
     [SerializeField] int jackPotCount;
+    public bool jackPotFlag = false;
+    public int ballStockCount; 
 
     public int CoinCount {get => coinCount; set => coinCount = value; }
     public int JackPotCount {get => jackPotCount; set => jackPotCount = value; }
@@ -21,13 +26,16 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         mainGameUI.SetGameUI();
-        coinDropperController.DropCoins(setCoinCount);
+        dropperController.DropCoins(setCoinCount);
     }
 
-    private void Update() {
+    private void Update() 
+    {
+        if(ballStockCount >= 3 && !jackPotFlag) StartJackPot();
+
         if(Input.GetButtonDown("Fire1") && coinCount > 0)
         {
-            coinDropperController.ShotCoin(GetInstantiatePosition());
+            dropperController.ShotCoin(GetInstantiatePosition());
             coinCount--;
             UpdateCoinCount();
         }
@@ -43,5 +51,35 @@ public class GameManager : MonoBehaviour
     {
         mainGameUI.UpdateCoinCountText(coinCount);
         mainGameUI.UpdateJackPotText(jackPotCount);
+    }
+
+    async public void StartJackPot()
+    {
+        jackPotFlag = true;
+        Debug.Log("Jack Pot OPEN");
+        rouletteController.isActiveRoulette = false;
+
+        var count = jackPotCount;
+        jackPotCount = 0;
+        UpdateCoinCount();
+
+        await DeleteBall();
+        await dropperController.GetRouletteCoin(count, mainGameUI.rouletteActionText);
+        
+        rouletteController.isActiveRoulette = true;
+        jackPotFlag = false;
+    }
+
+    async public UniTask DeleteBall()
+    {
+        if(dropperController.BallDropPoint.transform.childCount != 0)
+        {
+            for(int i = dropperController.BallDropPoint.transform.childCount; i > 0; i--)
+            {
+                Destroy(dropperController.BallDropPoint.transform.GetChild(i-1).gameObject);
+                ballStockCount = dropperController.BallDropPoint.transform.childCount - 1;
+                await UniTask.Delay(1000);
+            }
+        }
     }
 }
