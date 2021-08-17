@@ -64,7 +64,7 @@ public class DropperController : MonoBehaviour
             coinCount--;
             actionText.text = "Get $ " + count + " Coin!!\n$ " + coinCount;
             
-            await UniTask.Delay(100);
+            await UniTask.Delay(75);
         }
     }
 

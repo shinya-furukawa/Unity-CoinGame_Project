@@ -70,7 +70,6 @@ public class StageManager : SerializedMonoBehaviour
 
     public void Action()
     {
-        Debug.Log("Start Action");
         isAction = true;
         rouletteController.OnStartRoulette();
         counterBalls[counterChecker-1].GetComponent<MeshRenderer>().material = stageMaterials[LIGHT_DOWN];

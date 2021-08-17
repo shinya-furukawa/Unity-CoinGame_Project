@@ -51,7 +51,6 @@ public class FieldChecker : MonoBehaviour
                     break;
 
                 case FieldPosition.DropCenter: case FieldPosition.DropRight: case FieldPosition.DropLeft:
-                    Debug.Log("destroy");
                     dropFieldContorller.DestroyCoin(other.gameObject, fieldPostition);
                     break;
             }
